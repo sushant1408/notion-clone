@@ -25,9 +25,10 @@ import { useCreateDocument } from "@/features/documents/api/use-create-document"
 import { cn } from "@/lib/utils";
 import { Id } from "../../../../convex/_generated/dataModel";
 import { useArchiveDocument } from "@/features/documents/api/use-archive-document";
+import { TooltipWrapper } from "@/components/tooltip-wrapper";
 
 interface ItemProps {
-  onClick: () => void;
+  onClick?: () => void;
   label: string;
   icon: LucideIcon;
   id?: Id<"documents">;
@@ -153,14 +154,20 @@ const Item = ({
       {id && (
         <div className="ml-auto flex items-center gap-x-2">
           <DropdownMenu>
-            <DropdownMenuTrigger onClick={(e) => e.stopPropagation()} asChild>
-              <button
-                disabled={isCreatingDocument || isArchivingDocument}
-                className="opacity-0 group-hover:opacity-100 h-full ml-auto rounded-sm hover:bg-neutral-300 dark:hover:bg-neutral-600"
-              >
-                <MoreHorizontalIcon className="!size-4 text-muted-foreground" />
-              </button>
-            </DropdownMenuTrigger>
+            <TooltipWrapper
+              label="Delete and more..."
+              side="bottom"
+              align="center"
+            >
+              <DropdownMenuTrigger onClick={(e) => e.stopPropagation()} asChild>
+                <button
+                  disabled={isCreatingDocument || isArchivingDocument}
+                  className="opacity-0 group-hover:opacity-100 h-full ml-auto rounded-sm hover:bg-neutral-300 dark:hover:bg-neutral-600"
+                >
+                  <MoreHorizontalIcon className="!size-4 text-muted-foreground" />
+                </button>
+              </DropdownMenuTrigger>
+            </TooltipWrapper>
             <DropdownMenuContent
               className="w-60"
               align="start"
@@ -182,13 +189,19 @@ const Item = ({
               </DropdownMenuLabel>
             </DropdownMenuContent>
           </DropdownMenu>
-          <button
-            onClick={onCreate}
-            disabled={isCreatingDocument || isArchivingDocument}
-            className="opacity-0 group-hover:opacity-100 h-full ml-auto rounded-sm hover:bg-neutral-300 dark:hover:bg-neutral-600"
+          <TooltipWrapper
+            label="Add a page inside"
+            side="bottom"
+            align="center"
           >
-            <PlusIcon className="!size-4 text-muted-foreground" />
-          </button>
+            <button
+              onClick={onCreate}
+              disabled={isCreatingDocument || isArchivingDocument}
+              className="opacity-0 group-hover:opacity-100 h-full ml-auto rounded-sm hover:bg-neutral-300 dark:hover:bg-neutral-600"
+            >
+              <PlusIcon className="!size-4 text-muted-foreground" />
+            </button>
+          </TooltipWrapper>
         </div>
       )}
     </button>

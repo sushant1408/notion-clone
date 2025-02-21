@@ -9,17 +9,24 @@ import {
   SettingsIcon,
   Trash2Icon,
 } from "lucide-react";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ComponentRef, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { useMediaQuery } from "usehooks-ts";
 
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { useCreateDocument } from "@/features/documents/api/use-create-document";
 import { cn } from "@/lib/utils";
-import { Item } from "./item";
-import { UserItem } from "./user-item";
 import { DocumentList } from "./document-list";
-import Link from "next/link";
+import { Item } from "./item";
+import { TrashBox } from "./trash-box";
+import { UserItem } from "./user-item";
+import { TooltipWrapper } from "@/components/tooltip-wrapper";
 
 const Navigation = () => {
   const pathname = usePathname();
@@ -164,15 +171,33 @@ const Navigation = () => {
         </button>
         <div>
           <UserItem />
+          
           <Item onClick={() => {}} label="Search" icon={SearchIcon} isSearch />
           <Item onClick={handleCreate} label="New page" icon={PlusCircleIcon} />
         </div>
         <div className="my-4">
           <DocumentList />
+          <Item
+            onClick={handleCreate}
+            label="Add a page"
+            icon={PlusCircleIcon}
+          />
         </div>
         <div>
           <Item onClick={() => {}} label="Settings" icon={SettingsIcon} />
-          <Item onClick={() => {}} label="Trash" icon={Trash2Icon} />
+          <Popover>
+            <TooltipWrapper label="Restore deleted pages" side="right">
+              <PopoverTrigger className="w-full">
+                <Item label="Trash" icon={Trash2Icon} />
+              </PopoverTrigger>
+            </TooltipWrapper>
+            <PopoverContent
+              className="p-0 w-72"
+              side={isMobile ? "bottom" : "right"}
+            >
+              <TrashBox />
+            </PopoverContent>
+          </Popover>
           <Link href="mailto:gandhi.sushant1408@gmail.com">
             <Item
               onClick={() => {}}
