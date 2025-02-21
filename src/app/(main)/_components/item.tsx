@@ -1,19 +1,30 @@
 "use client";
 
+import { useUser } from "@clerk/clerk-react";
 import {
   ChevronDownIcon,
   ChevronRightIcon,
   LucideIcon,
   MoreHorizontalIcon,
   PlusIcon,
+  Trash2Icon,
 } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useCreateDocument } from "@/features/documents/api/use-create-document";
 import { cn } from "@/lib/utils";
 import { Id } from "../../../../convex/_generated/dataModel";
-import { useCreateDocument } from "@/features/documents/api/use-create-document";
-import { toast } from "sonner";
-import { useRouter } from "next/navigation";
+import { useArchiveDocument } from "@/features/documents/api/use-archive-document";
 
 interface ItemProps {
   onClick: () => void;
@@ -44,7 +55,11 @@ const Item = ({
 
   const ChevronIcon = expanded ? ChevronDownIcon : ChevronRightIcon;
 
-  const { mutate, isPending } = useCreateDocument();
+  const { user } = useUser();
+  const { mutate: createDocument, isPending: isCreatingDocument } =
+    useCreateDocument();
+  const { isPending: isArchivingDocument, mutate: archiveDocument } =
+    useArchiveDocument();
 
   const handleExpand = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.stopPropagation();
@@ -60,7 +75,7 @@ const Item = ({
 
     toast.loading("Creating a new note...", { id: "new-note" });
 
-    mutate(
+    createDocument(
       { title: "Untitled", parentDocument: id },
       {
         onSuccess: (data) => {
@@ -74,6 +89,32 @@ const Item = ({
         },
         onError: () => {
           toast.error("Failed to create a new note.", { id: "new-note" });
+        },
+      }
+    );
+  };
+
+  const onArchive = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.stopPropagation();
+
+    if (!id) {
+      return;
+    }
+
+    archiveDocument(
+      { documentId: id },
+      {
+        onSuccess: (data) => {
+          toast.success("Note archived");
+
+          if (!expanded) {
+            onExpand?.();
+          }
+
+          router.push(`/documents/${data}`);
+        },
+        onError: () => {
+          toast.error("Failed to archive the note.");
         },
       }
     );
@@ -111,11 +152,39 @@ const Item = ({
       )}
       {id && (
         <div className="ml-auto flex items-center gap-x-2">
-          <button className="opacity-0 group-hover:opacity-100 h-full ml-auto rounded-sm hover:bg-neutral-300 dark:hover:bg-neutral-600">
-            <MoreHorizontalIcon className="!size-4 text-muted-foreground" />
-          </button>
+          <DropdownMenu>
+            <DropdownMenuTrigger onClick={(e) => e.stopPropagation()} asChild>
+              <button
+                disabled={isCreatingDocument || isArchivingDocument}
+                className="opacity-0 group-hover:opacity-100 h-full ml-auto rounded-sm hover:bg-neutral-300 dark:hover:bg-neutral-600"
+              >
+                <MoreHorizontalIcon className="!size-4 text-muted-foreground" />
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              className="w-60"
+              align="start"
+              side="right"
+              forceMount
+            >
+              <DropdownMenuItem asChild>
+                <button
+                  onClick={onArchive}
+                  className="w-full hover:text-rose-600"
+                >
+                  <Trash2Icon />
+                  Move to trash
+                </button>
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuLabel className="text-xs text-muted-foreground">
+                Last edited by: {user?.fullName}
+              </DropdownMenuLabel>
+            </DropdownMenuContent>
+          </DropdownMenu>
           <button
             onClick={onCreate}
+            disabled={isCreatingDocument || isArchivingDocument}
             className="opacity-0 group-hover:opacity-100 h-full ml-auto rounded-sm hover:bg-neutral-300 dark:hover:bg-neutral-600"
           >
             <PlusIcon className="!size-4 text-muted-foreground" />
