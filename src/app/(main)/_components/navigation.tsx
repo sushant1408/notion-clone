@@ -1,12 +1,25 @@
 "use client";
 
-import { ChevronsLeftIcon, MenuIcon } from "lucide-react";
+import {
+  ChevronsLeftIcon,
+  MenuIcon,
+  MessageCircleQuestionIcon,
+  PlusCircleIcon,
+  SearchIcon,
+  SettingsIcon,
+  Trash2Icon,
+} from "lucide-react";
 import { usePathname } from "next/navigation";
 import { ComponentRef, useEffect, useRef, useState } from "react";
+import { toast } from "sonner";
 import { useMediaQuery } from "usehooks-ts";
 
+import { useCreateDocument } from "@/features/documents/api/use-create-document";
 import { cn } from "@/lib/utils";
+import { Item } from "./item";
 import { UserItem } from "./user-item";
+import { DocumentList } from "./document-list";
+import Link from "next/link";
 
 const Navigation = () => {
   const pathname = usePathname();
@@ -20,12 +33,15 @@ const Navigation = () => {
   const [isResetting, setIsResetting] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(isMobile);
 
+  const { mutate } = useCreateDocument();
+
   useEffect(() => {
     if (isMobile) {
       collapseSidebar();
     } else {
       resetSidebarWidth();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isMobile]);
 
   useEffect(() => {
@@ -111,6 +127,22 @@ const Navigation = () => {
     }
   };
 
+  const handleCreate = () => {
+    toast.loading("Creating a new note...", { id: "new-note" });
+
+    mutate(
+      { title: "Untitled" },
+      {
+        onSuccess: () => {
+          toast.success("New note created!", { id: "new-note" });
+        },
+        onError: () => {
+          toast.error("Failed to create a new note.", { id: "new-note" });
+        },
+      }
+    );
+  };
+
   return (
     <>
       <aside
@@ -121,8 +153,7 @@ const Navigation = () => {
           isMobile && "w-0"
         )}
       >
-        <div
-          role="button"
+        <button
           className={cn(
             "size-6 text-muted-foreground rounded-sm hover:bg-neutral-300 dark:bg-neutral-600 absolute top-3 right-2 opacity-0 group-hover/sidebar:opacity-100",
             isMobile && "opacity-100"
@@ -130,13 +161,27 @@ const Navigation = () => {
           onClick={collapseSidebar}
         >
           <ChevronsLeftIcon className="!size-6" />
-        </div>
+        </button>
         <div>
           <UserItem />
+          <Item onClick={() => {}} label="Search" icon={SearchIcon} isSearch />
+          <Item onClick={handleCreate} label="New page" icon={PlusCircleIcon} />
         </div>
-        <div className="mt-4">
-          <p>documents</p>
+        <div className="my-4">
+          <DocumentList />
         </div>
+        <div>
+          <Item onClick={() => {}} label="Settings" icon={SettingsIcon} />
+          <Item onClick={() => {}} label="Trash" icon={Trash2Icon} />
+          <Link href="mailto:gandhi.sushant1408@gmail.com">
+            <Item
+              onClick={() => {}}
+              label="Get help"
+              icon={MessageCircleQuestionIcon}
+            />
+          </Link>
+        </div>
+
         <div
           onMouseDown={handleMouseDown}
           onDoubleClick={resetSidebarWidth}

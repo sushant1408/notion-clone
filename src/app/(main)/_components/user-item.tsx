@@ -19,10 +19,7 @@ const UserItem = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <div
-          role="button"
-          className="flex items-center text-sm p-3 w-full hover:bg-primary/5"
-        >
+        <button className="flex items-center text-sm p-3 w-full hover:bg-primary/5">
           <div className="gap-x-2 flex items-center max-w-[150px]">
             <Avatar className="size-5">
               <AvatarFallback>
@@ -35,7 +32,7 @@ const UserItem = () => {
             </span>
           </div>
           <ChevronsLeftRightIcon className="rotate-90 mr-2 text-muted-foreground !size-4" />
-        </div>
+        </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent
         className="w-80"
