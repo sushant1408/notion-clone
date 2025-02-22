@@ -4,7 +4,7 @@ import { MenuIcon } from "lucide-react";
 import { useParams } from "next/navigation";
 
 import { useGetDocumentById } from "@/features/documents/api/use-get-document-by-id";
-import { Id } from "../../../../convex/_generated/dataModel";
+import { Doc, Id } from "../../../../convex/_generated/dataModel";
 import { Banner } from "./banner";
 import { Menu } from "./menu";
 import { Title } from "./title";
@@ -48,7 +48,7 @@ const Navbar = ({ isCollapsed, onResetWidth }: NavbarProps) => {
         )}
 
         <div className="flex items-center justify-between w-full">
-          <Title initialData={document} />
+          <Title initialData={document as Doc<"documents">} />
           <div className="flex items-center gap-x-2">
             <Menu documentId={document!._id} />
           </div>

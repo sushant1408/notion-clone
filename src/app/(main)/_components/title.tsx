@@ -2,26 +2,24 @@ import { ChangeEvent, KeyboardEvent, useRef, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useUpdateDocument } from "@/features/documents/api/use-create-document copy";
-import { Doc } from "../../../../convex/_generated/dataModel";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useUpdateDocument } from "@/features/documents/api/use-update-document";
+import { Doc } from "../../../../convex/_generated/dataModel";
 
 interface TitleProps {
-  initialData: Doc<"documents"> | undefined;
+  initialData: Doc<"documents">;
 }
 
 const Title = ({ initialData }: TitleProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const [title, setTitle] = useState<string | undefined>(
-    initialData?.title || "Untitled"
-  );
+  const [title, setTitle] = useState(initialData.title || "Untitled");
   const [isEditing, setIsEditing] = useState(false);
 
-  const { mutate, isPending } = useUpdateDocument();
+  const { mutate } = useUpdateDocument();
 
   const enableInput = () => {
-    setTitle(initialData?.title);
+    setTitle(initialData.title as string);
     setIsEditing(true);
 
     setTimeout(() => {
@@ -37,7 +35,10 @@ const Title = ({ initialData }: TitleProps) => {
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
 
-    mutate({ documentId: initialData!._id, title: e.target.value || "Untitled" });
+    mutate({
+      documentId: initialData._id,
+      title: e.target.value || "Untitled",
+    });
   };
 
   const onKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
@@ -75,7 +76,7 @@ const Title = ({ initialData }: TitleProps) => {
 };
 
 Title.Skeleton = function TitleSkeleton() {
-  return <Skeleton className="h-6 w-20 rounded-md" />
-}
+  return <Skeleton className="h-6 w-20 rounded-md" />;
+};
 
 export { Title };
