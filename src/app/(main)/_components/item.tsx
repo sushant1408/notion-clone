@@ -4,6 +4,7 @@ import { useUser } from "@clerk/clerk-react";
 import {
   ChevronDownIcon,
   ChevronRightIcon,
+  FileIcon,
   LucideIcon,
   MoreHorizontalIcon,
   PlusIcon,
@@ -30,7 +31,7 @@ import { TooltipWrapper } from "@/components/tooltip-wrapper";
 interface ItemProps {
   onClick?: () => void;
   label: string;
-  icon: LucideIcon;
+  icon?: LucideIcon;
   id?: Id<"documents">;
   documentIcon?: string;
   active?: boolean;
@@ -134,18 +135,27 @@ const Item = ({
     >
       {!!id && (
         <button
-          className="h-full rounded-sm hover:bg-neutral-300 dark:hover:bg-neutral-600 mr-1"
+          className="h-full rounded-sm hover:bg-neutral-300 dark:hover:bg-neutral-600 mr-3"
           onClick={handleExpand}
         >
-          <ChevronIcon className="!size-4 shrink-0 text-muted-foreground" />
+          <ChevronIcon className="!size-4 shrink-0 text-muted-foreground hidden group-hover:block" />
+
+          {documentIcon ? (
+            <div className="shrink-0 text-[16px] block group-hover:hidden">
+              {documentIcon}
+            </div>
+          ) : (
+            <FileIcon className="shrink-0 h-[16px] w-[16px] block group-hover:hidden" />
+          )}
         </button>
       )}
-      {documentIcon ? (
-        <div className="shrink-0 mr-2 text-[18px]">{documentIcon}</div>
-      ) : (
-        <Icon className="shrink-0 h-[18px] mr-2 text-muted-foreground" />
+
+      {!documentIcon && Icon && (
+        <Icon className="shrink-0 h-[16px] w-[16px] mr-2 text-muted-foreground" />
       )}
+
       <span className="truncate">{label}</span>
+
       {isSearch && (
         <kbd className="ml-auto pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground">
           <span className="text-xs">⌘</span>K

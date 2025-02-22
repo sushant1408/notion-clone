@@ -1,6 +1,5 @@
 "use client";
 
-import { FileIcon } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -68,7 +67,6 @@ const DocumentList = ({ level = 0, parentDocumentId }: DocumentListProps) => {
             id={document._id}
             onClick={() => onRedirect(document._id)}
             label={document.title || ""}
-            icon={FileIcon}
             documentIcon={document.icon}
             active={params.documentId === document._id}
             level={level}
