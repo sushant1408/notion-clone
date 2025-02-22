@@ -105,14 +105,14 @@ const Item = ({
     archiveDocument(
       { documentId: id },
       {
-        onSuccess: (data) => {
-          toast.success("Note archived");
+        onSuccess: () => {
+          toast.success("Note moved to trash!");
 
           if (!expanded) {
             onExpand?.();
           }
 
-          router.push(`/documents/${data}`);
+          router.push("/documents");
         },
         onError: () => {
           toast.error("Failed to archive the note.");
