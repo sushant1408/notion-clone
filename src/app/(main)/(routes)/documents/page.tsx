@@ -3,6 +3,7 @@
 import { useUser } from "@clerk/clerk-react";
 import { PlusCircleIcon } from "lucide-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 import { Spinner } from "@/components/spinner";
@@ -10,6 +11,8 @@ import { Button } from "@/components/ui/button";
 import { useCreateDocument } from "@/features/documents/api/use-create-document";
 
 export default function DocumentsPage() {
+  const router = useRouter();
+
   const { user } = useUser();
   const { mutate, isPending } = useCreateDocument();
 
@@ -19,8 +22,9 @@ export default function DocumentsPage() {
     mutate(
       { title: "Untitled" },
       {
-        onSuccess: () => {
+        onSuccess: (data) => {
           toast.success("New note created!", { id: "new-note" });
+          router.push(`/documents/${data}`);
         },
         onError: () => {
           toast.error("Failed to create a new note.", { id: "new-note" });

@@ -11,7 +11,7 @@ interface CoverImageModalStore {
 const useCoverImageModal = create<CoverImageModalStore>((set) => ({
   isOpen: false,
   onClose: () => set({ isOpen: false, url: undefined }),
-  onOpen: () => set({ isOpen: true }),
+  onOpen: () => set({ isOpen: true, url: undefined }),
   onReplace: (url) => set({ isOpen: true, url }),
 }));
 

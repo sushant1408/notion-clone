@@ -6,10 +6,11 @@ import { useState } from "react";
 
 import { useRemoveCoverImage } from "@/features/documents/api/use-remove-cover-image";
 import { useCoverImageModal } from "@/features/documents/hooks/use-cover-image-modal";
+import { useEdgeStore } from "@/lib/edgestore";
 import { cn } from "@/lib/utils";
 import { Id } from "../../convex/_generated/dataModel";
 import { Button } from "./ui/button";
-import { useEdgeStore } from "@/lib/edgestore";
+import { Skeleton } from "./ui/skeleton";
 
 interface CoverProps {
   url?: string;
@@ -110,6 +111,10 @@ const Cover = ({ preview, url }: CoverProps) => {
       )}
     </div>
   );
+};
+
+Cover.Skeleton = function CoverSkeleton() {
+  return <Skeleton className="w-full h-[35vh]" />
 };
 
 export { Cover };

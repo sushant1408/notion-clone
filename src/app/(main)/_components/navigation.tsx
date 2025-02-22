@@ -10,7 +10,7 @@ import {
   Trash2Icon,
 } from "lucide-react";
 import Link from "next/link";
-import { useParams, usePathname } from "next/navigation";
+import { useParams, usePathname, useRouter } from "next/navigation";
 import { ComponentRef, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { useMediaQuery } from "usehooks-ts";
@@ -27,13 +27,14 @@ import { useSettings } from "@/features/settings/hooks/use-settings";
 import { cn } from "@/lib/utils";
 import { DocumentList } from "./document-list";
 import { Item } from "./item";
+import { Navbar } from "./navbar";
 import { TrashBox } from "./trash-box";
 import { UserItem } from "./user-item";
-import { Navbar } from "./navbar";
 
 const Navigation = () => {
   const pathname = usePathname();
   const params = useParams();
+  const router = useRouter();
 
   const isResizingRef = useRef(false);
   const sidebarRef = useRef<ComponentRef<"aside">>(null);
@@ -146,8 +147,9 @@ const Navigation = () => {
     mutate(
       { title: "Untitled" },
       {
-        onSuccess: () => {
+        onSuccess: (data) => {
           toast.success("New note created!", { id: "new-note" });
+          router.push(`/documents/${data}`);
         },
         onError: () => {
           toast.error("Failed to create a new note.", { id: "new-note" });
