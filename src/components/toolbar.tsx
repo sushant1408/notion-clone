@@ -9,6 +9,7 @@ import { Doc } from "../../convex/_generated/dataModel";
 import { EmojiPopover } from "./emoji-popover";
 import { Button } from "./ui/button";
 import { useRemoveIcon } from "@/features/documents/api/use-remove-icon";
+import { useCoverImageModal } from "@/features/documents/hooks/use-search";
 
 interface ToolbarProps {
   initialData: Doc<"documents">;
@@ -17,6 +18,8 @@ interface ToolbarProps {
 
 const Toolbar = ({ initialData, preview }: ToolbarProps) => {
   const inputRef = useRef<HTMLTextAreaElement>(null);
+
+  const coverImageModal = useCoverImageModal();
 
   const [title, setTitle] = useState(initialData.title || "Untitled");
   const [isEditing, setIsEditing] = useState(false);
@@ -106,6 +109,7 @@ const Toolbar = ({ initialData, preview }: ToolbarProps) => {
 
         {!initialData.coverImage && !preview && (
           <Button
+            onClick={coverImageModal.onOpen}
             className="text-muted-foreground text-xs"
             variant="outline"
             size="sm"
