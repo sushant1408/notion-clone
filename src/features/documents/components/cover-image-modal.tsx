@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/dialog";
 import { useEdgeStore } from "@/lib/edgestore";
 import { useUpdateDocument } from "../api/use-update-document";
-import { useCoverImageModal } from "../hooks/use-search";
+import { useCoverImageModal } from "../hooks/use-cover-image-modal";
 import { Id } from "../../../../convex/_generated/dataModel";
 
 const CoverImageModal = () => {
@@ -22,7 +22,7 @@ const CoverImageModal = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const { edgestore } = useEdgeStore();
-  const { isOpen, onClose } = useCoverImageModal();
+  const { isOpen, onClose, url } = useCoverImageModal();
 
   const { mutate: updateDocument } = useUpdateDocument();
 
@@ -33,6 +33,9 @@ const CoverImageModal = () => {
 
       const res = await edgestore.publicFiles.upload({
         file,
+        options: {
+          replaceTargetUrl: url,
+        },
       });
 
       updateDocument(

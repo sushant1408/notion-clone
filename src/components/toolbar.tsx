@@ -9,7 +9,7 @@ import { Doc } from "../../convex/_generated/dataModel";
 import { EmojiPopover } from "./emoji-popover";
 import { Button } from "./ui/button";
 import { useRemoveIcon } from "@/features/documents/api/use-remove-icon";
-import { useCoverImageModal } from "@/features/documents/hooks/use-search";
+import { useCoverImageModal } from "@/features/documents/hooks/use-cover-image-modal";
 
 interface ToolbarProps {
   initialData: Doc<"documents">;
