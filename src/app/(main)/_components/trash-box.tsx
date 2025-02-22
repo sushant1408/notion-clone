@@ -126,7 +126,7 @@ const TrashBox = () => {
                 <TooltipWrapper label="Restore" side="bottom" align="center">
                   <button
                     onClick={(e) => onRestore(e, document._id)}
-                    className="rounded-sm p-2 hover:bg-neutral-200"
+                    className="rounded-sm p-2 hover:bg-neutral-200 dark:hover:bg-neutral-600"
                   >
                     <UndoIcon className="!size-4 text-muted-foreground" />
                   </button>
@@ -138,7 +138,7 @@ const TrashBox = () => {
                 >
                   <button
                     onClick={() => onDelete(document._id)}
-                    className="rounded-sm p-2 hover:bg-neutral-200"
+                    className="rounded-sm p-2 hover:bg-neutral-200 dark:hover:bg-neutral-600"
                   >
                     <Trash2Icon className="!size-4 text-muted-foreground" />
                   </button>

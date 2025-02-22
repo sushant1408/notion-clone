@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/popover";
 import { useCreateDocument } from "@/features/documents/api/use-create-document";
 import { useSearch } from "@/features/search/hooks/use-search";
+import { useSettings } from "@/features/settings/hooks/use-settings";
 import { cn } from "@/lib/utils";
 import { DocumentList } from "./document-list";
 import { Item } from "./item";
@@ -37,7 +38,8 @@ const Navigation = () => {
   const navbarRef = useRef<ComponentRef<"div">>(null);
 
   const isMobile = useMediaQuery("(max-width: 768px)");
-  const { onOpen } = useSearch();
+  const search = useSearch();
+  const settings = useSettings();
 
   const [isResetting, setIsResetting] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(isMobile);
@@ -175,7 +177,7 @@ const Navigation = () => {
           <UserItem />
 
           <Item
-            onClick={() => onOpen()}
+            onClick={search.onOpen}
             label="Search"
             icon={SearchIcon}
             isSearch
@@ -191,7 +193,11 @@ const Navigation = () => {
           />
         </div>
         <div>
-          <Item onClick={() => {}} label="Settings" icon={SettingsIcon} />
+          <Item
+            onClick={settings.onOpen}
+            label="Settings"
+            icon={SettingsIcon}
+          />
           <Popover>
             <TooltipWrapper label="Restore deleted pages" side="right">
               <PopoverTrigger className="w-full">
@@ -206,11 +212,7 @@ const Navigation = () => {
             </PopoverContent>
           </Popover>
           <Link href="mailto:gandhi.sushant1408@gmail.com">
-            <Item
-              onClick={() => {}}
-              label="Get help"
-              icon={MessageCircleQuestionIcon}
-            />
+            <Item label="Get help" icon={MessageCircleQuestionIcon} />
           </Link>
         </div>
 

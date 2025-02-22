@@ -6,20 +6,17 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import {
-  Command,
   CommandDialog,
   CommandEmpty,
   CommandGroup,
   CommandInput,
   CommandItem,
   CommandList,
-  CommandSeparator,
-  CommandShortcut,
 } from "@/components/ui/command";
-import { useSearch } from "@/features/search/hooks/use-search";
+import { DialogTitle } from "@/components/ui/dialog";
 import { useGetSearchDocuments } from "@/features/documents/api/use-get-search-documents";
-import { DialogTitle } from "./ui/dialog";
-import { Id } from "../../convex/_generated/dataModel";
+import { useSearch } from "@/features/search/hooks/use-search";
+import { Id } from "../../../../convex/_generated/dataModel";
 
 const SearchCommand = () => {
   const router = useRouter();
