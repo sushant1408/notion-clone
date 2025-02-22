@@ -1,13 +1,13 @@
 "use client";
 
+import { FileIcon } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 
-import { useGetDocuments } from "@/features/documents/api/use-get-documents";
+import { useGetSidebarDocuments } from "@/features/documents/api/use-get-sidebar-documents";
 import { cn } from "@/lib/utils";
 import { Doc, Id } from "../../../../convex/_generated/dataModel";
 import { Item } from "./item";
-import { FileIcon } from "lucide-react";
 
 interface DocumentListProps {
   parentDocumentId?: Id<"documents">;
@@ -28,7 +28,7 @@ const DocumentList = ({ level = 0, parentDocumentId }: DocumentListProps) => {
     }));
   };
 
-  const { documents, isLoading } = useGetDocuments({
+  const { documents, isLoading } = useGetSidebarDocuments({
     parentDocument: parentDocumentId,
   });
 

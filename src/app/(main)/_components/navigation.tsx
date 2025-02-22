@@ -15,18 +15,19 @@ import { ComponentRef, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { useMediaQuery } from "usehooks-ts";
 
+import { TooltipWrapper } from "@/components/tooltip-wrapper";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { useCreateDocument } from "@/features/documents/api/use-create-document";
+import { useSearch } from "@/features/search/hooks/use-search";
 import { cn } from "@/lib/utils";
 import { DocumentList } from "./document-list";
 import { Item } from "./item";
 import { TrashBox } from "./trash-box";
 import { UserItem } from "./user-item";
-import { TooltipWrapper } from "@/components/tooltip-wrapper";
 
 const Navigation = () => {
   const pathname = usePathname();
@@ -36,6 +37,7 @@ const Navigation = () => {
   const navbarRef = useRef<ComponentRef<"div">>(null);
 
   const isMobile = useMediaQuery("(max-width: 768px)");
+  const { onOpen } = useSearch();
 
   const [isResetting, setIsResetting] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(isMobile);
@@ -171,8 +173,13 @@ const Navigation = () => {
         </button>
         <div>
           <UserItem />
-          
-          <Item onClick={() => {}} label="Search" icon={SearchIcon} isSearch />
+
+          <Item
+            onClick={() => onOpen()}
+            label="Search"
+            icon={SearchIcon}
+            isSearch
+          />
           <Item onClick={handleCreate} label="New page" icon={PlusCircleIcon} />
         </div>
         <div className="my-4">
