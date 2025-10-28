@@ -2,14 +2,48 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Environment Setup
+
+### Prerequisites
+Before running the project, you need to set up accounts and obtain API keys:
+
+1. **Convex** (Backend Database)
+   - Create account at https://dashboard.convex.dev
+   - Create a new project
+   - Copy your deployment URL
+
+2. **Clerk** (Authentication)
+   - Create account at https://dashboard.clerk.com
+   - Create a new application
+   - Copy your Publishable Key
+
+3. **EdgeStore** (Optional - File Uploads)
+   - Create account at https://edgestore.dev
+   - Create a new project for file storage
+
+### Environment Variables
+
+Copy `.env.example` to `.env` and fill in your values:
+
+```bash
+cp .env.example .env
+```
+
+Then update `.env` with your actual credentials:
+
+**Important**: Never commit `.env` to version control. The `.env.example` file shows the required variables without secrets.
+
 ## Quick Start Commands
 
 ```bash
+# Install dependencies
+npm install
+
 # Development server (runs on http://localhost:3008)
 npm run dev
 
 # Build for production
-npm build
+npm run build
 
 # Start production server
 npm start
@@ -232,7 +266,8 @@ const { data, error, isLoading, isPending, mutate } = useCustomHook();
 ## Important Notes
 
 ### Security
-- **No hardcoded secrets**: Check `.env.local` for Clerk publishable key and Convex deployment URL
+- **No hardcoded secrets**: Use `.env` for sensitive values (never commit this file)
+  - See `.env.example` for required environment variables
 - **User isolation**: All queries filtered by userId from Clerk
 - **Ownership validation**: Mutations verify user owns document before updating
 - **Published documents**: Still validate ownership for editing, but allow public read-only access
@@ -298,14 +333,58 @@ if (!isAuthenticated) {
 - **Testing**: No test runner configured yet—add Jest/Vitest as needed
 - **Debugging**: Use browser DevTools; Convex queries/mutations visible in Network tab
 
-## Future Enhancements
+## Libraries & Dependencies
 
-Potential improvements based on current architecture:
-- Add collaboration features (multi-user editing)
-- Implement document versioning/history
-- Add templates for new documents
-- Implement virtual scrolling for large document lists
-- Add full-text search in Convex
-- Implement comments/annotations
-- Add keyboard shortcuts modal
-- Optimize editor performance for large documents
+### Core Framework
+- **Next.js** (15.1.7) - React framework with App Router, API routes, and SSR
+- **React** (19.0.0) - UI library with latest hooks and features
+- **React DOM** (19.0.0) - DOM rendering for React
+
+### Backend & Database
+- **Convex** (1.19.2) - Real-time database with automatic synchronization and mutations
+- **@clerk/nextjs** (6.12.0) - Next.js Clerk integration for authentication
+- **@clerk/clerk-react** (5.23.0) - React hooks and components for Clerk auth
+
+### Rich Text Editing
+- **@blocknote/react** (0.41.1) - React wrapper for BlockNote editor
+- **@blocknote/core** (0.41.1) - Core BlockNote editing engine
+- **@blocknote/mantine** (0.41.1) - Mantine UI integration for BlockNote
+- **@blocknote/code-block** (0.41.1) - Code block plugin with syntax highlighting
+
+### File Storage
+- **@edgestore/react** (0.3.3) - Client-side EdgeStore provider for file uploads
+- **@edgestore/server** (0.3.3) - Server-side EdgeStore utilities for API routes
+- **react-dropzone** (14.3.5) - Drag-and-drop file upload component
+
+### UI Components & Styling
+- **@radix-ui/react-avatar** (1.1.3) - Avatar component primitive
+- **@radix-ui/react-dialog** (1.1.6) - Dialog/modal component primitive
+- **@radix-ui/react-dropdown-menu** (2.1.6) - Dropdown menu component primitive
+- **@radix-ui/react-label** (2.1.2) - Label component primitive
+- **@radix-ui/react-popover** (1.1.6) - Popover component primitive
+- **@radix-ui/react-slot** (1.1.2) - Slot composition utility
+- **@radix-ui/react-tooltip** (1.1.8) - Tooltip component primitive
+- **Tailwind CSS** (3.4.1) - Utility-first CSS framework
+- **tailwindcss-animate** (1.0.7) - Animation utilities for Tailwind CSS
+- **tailwind-merge** (3.0.1) - Merge Tailwind CSS classes without conflicts
+- **class-variance-authority** (0.7.1) - CSS-in-JS variant composition
+- **clsx** (2.1.1) - Conditional CSS class composition utility
+
+### State Management & Forms
+- **Zustand** (5.0.3) - Lightweight state management for modals and UI state
+- **Zod** (3.24.2) - TypeScript-first schema validation and parsing
+- **cmdk** (1.0.4) - Command/search menu component with fuzzy search
+
+### Theme & Utilities
+- **next-themes** (0.4.4) - Light/dark/system theme management
+- **lucide-react** (0.475.0) - Icon library with 475+ icons
+- **emoji-picker-react** (4.12.0) - Emoji picker component for icons
+- **react-textarea-autosize** (8.5.7) - Auto-resizing textarea component
+- **sonner** (2.0.1) - Toast notification library
+- **usehooks-ts** (3.1.1) - Collection of useful React hooks
+
+### Development Tools
+- **TypeScript** (5) - Type-safe JavaScript with strict mode
+- **ESLint** (9) - Code linting and style checking
+- **PostCSS** (8) - CSS transformation tool for Tailwind CSS
+- **@types packages** - TypeScript type definitions for Node, React, React DOM
