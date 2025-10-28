@@ -336,55 +336,55 @@ if (!isAuthenticated) {
 ## Libraries & Dependencies
 
 ### Core Framework
-- **Next.js** (15.1.7) - React framework with App Router, API routes, and SSR
-- **React** (19.0.0) - UI library with latest hooks and features
-- **React DOM** (19.0.0) - DOM rendering for React
+- `Next.js` (15.1.7) - React framework with App Router, API routes, and SSR
+- `React` (19.0.0) - UI library with latest hooks and features
+- `React DOM` (19.0.0) - DOM rendering for React
 
 ### Backend & Database
-- **Convex** (1.19.2) - Real-time database with automatic synchronization and mutations
-- **@clerk/nextjs** (6.12.0) - Next.js Clerk integration for authentication
-- **@clerk/clerk-react** (5.23.0) - React hooks and components for Clerk auth
+- `Convex` (1.19.2) - Real-time database with automatic synchronization and mutations
+- `@clerk/nextjs` (6.12.0) - Next.js Clerk integration for authentication
+- `@clerk/clerk-react` (5.23.0) - React hooks and components for Clerk auth
 
 ### Rich Text Editing
-- **@blocknote/react** (0.41.1) - React wrapper for BlockNote editor
-- **@blocknote/core** (0.41.1) - Core BlockNote editing engine
-- **@blocknote/mantine** (0.41.1) - Mantine UI integration for BlockNote
-- **@blocknote/code-block** (0.41.1) - Code block plugin with syntax highlighting
+- `@blocknote/react` (0.41.1) - React wrapper for BlockNote editor
+- `@blocknote/core` (0.41.1) - Core BlockNote editing engine
+- `@blocknote/mantine` (0.41.1) - Mantine UI integration for BlockNote
+- `@blocknote/code-block` (0.41.1) - Code block plugin with syntax highlighting
 
 ### File Storage
-- **@edgestore/react** (0.3.3) - Client-side EdgeStore provider for file uploads
-- **@edgestore/server** (0.3.3) - Server-side EdgeStore utilities for API routes
-- **react-dropzone** (14.3.5) - Drag-and-drop file upload component
+- `@edgestore/react` (0.3.3) - Client-side EdgeStore provider for file uploads
+- `@edgestore/server` (0.3.3) - Server-side EdgeStore utilities for API routes
+- `react-dropzone` (14.3.5) - Drag-and-drop file upload component
 
 ### UI Components & Styling
-- **@radix-ui/react-avatar** (1.1.3) - Avatar component primitive
-- **@radix-ui/react-dialog** (1.1.6) - Dialog/modal component primitive
-- **@radix-ui/react-dropdown-menu** (2.1.6) - Dropdown menu component primitive
-- **@radix-ui/react-label** (2.1.2) - Label component primitive
-- **@radix-ui/react-popover** (1.1.6) - Popover component primitive
-- **@radix-ui/react-slot** (1.1.2) - Slot composition utility
-- **@radix-ui/react-tooltip** (1.1.8) - Tooltip component primitive
-- **Tailwind CSS** (3.4.1) - Utility-first CSS framework
-- **tailwindcss-animate** (1.0.7) - Animation utilities for Tailwind CSS
-- **tailwind-merge** (3.0.1) - Merge Tailwind CSS classes without conflicts
-- **class-variance-authority** (0.7.1) - CSS-in-JS variant composition
-- **clsx** (2.1.1) - Conditional CSS class composition utility
+- `@radix-ui/react-avatar` (1.1.3) - Avatar component primitive
+- `@radix-ui/react-dialog` (1.1.6) - Dialog/modal component primitive
+- `@radix-ui/react-dropdown-menu` (2.1.6) - Dropdown menu component primitive
+- `@radix-ui/react-label` (2.1.2) - Label component primitive
+- `@radix-ui/react-popover` (1.1.6) - Popover component primitive
+- `@radix-ui/react-slot` (1.1.2) - Slot composition utility
+- `@radix-ui/react-tooltip` (1.1.8) - Tooltip component primitive
+- `Tailwind CSS` (3.4.1) - Utility-first CSS framework
+- `tailwindcss-animate` (1.0.7) - Animation utilities for Tailwind CSS
+- `tailwind-merge` (3.0.1) - Merge Tailwind CSS classes without conflicts
+- `class-variance-authority` (0.7.1) - CSS-in-JS variant composition
+- `clsx` (2.1.1) - Conditional CSS class composition utility
 
 ### State Management & Forms
-- **Zustand** (5.0.3) - Lightweight state management for modals and UI state
-- **Zod** (3.24.2) - TypeScript-first schema validation and parsing
-- **cmdk** (1.0.4) - Command/search menu component with fuzzy search
+- `Zustand` (5.0.3) - Lightweight state management for modals and UI state
+- `Zod` (3.24.2) - TypeScript-first schema validation and parsing
+- `cmdk` (1.0.4) - Command/search menu component with fuzzy search
 
 ### Theme & Utilities
-- **next-themes** (0.4.4) - Light/dark/system theme management
-- **lucide-react** (0.475.0) - Icon library with 475+ icons
-- **emoji-picker-react** (4.12.0) - Emoji picker component for icons
-- **react-textarea-autosize** (8.5.7) - Auto-resizing textarea component
-- **sonner** (2.0.1) - Toast notification library
-- **usehooks-ts** (3.1.1) - Collection of useful React hooks
+- `next-themes` (0.4.4) - Light/dark/system theme management
+- `lucide-react` (0.475.0) - Icon library with 475+ icons
+- `emoji-picker-react` (4.12.0) - Emoji picker component for icons
+- `react-textarea-autosize` (8.5.7) - Auto-resizing textarea component
+- `sonner` (2.0.1) - Toast notification library
+- `usehooks-ts` (3.1.1) - Collection of useful React hooks
 
 ### Development Tools
-- **TypeScript** (5) - Type-safe JavaScript with strict mode
-- **ESLint** (9) - Code linting and style checking
-- **PostCSS** (8) - CSS transformation tool for Tailwind CSS
-- **@types packages** - TypeScript type definitions for Node, React, React DOM
+- `TypeScript` (5) - Type-safe JavaScript with strict mode
+- `ESLint` (9) - Code linting and style checking
+- `PostCSS` (8) - CSS transformation tool for Tailwind CSS
+- `@types packages` - TypeScript type definitions for Node, React, React DOM
